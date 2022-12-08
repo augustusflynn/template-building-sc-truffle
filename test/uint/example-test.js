@@ -1,5 +1,5 @@
 const Contract = artifacts.require("Contract")
-const { expect } = require("chai")
+const { expect, assert } = require("chai")
 
 contract("Example Test", function (accounts) {
   let contractInstance
@@ -8,11 +8,10 @@ contract("Example Test", function (accounts) {
 
   before("should set up before test", async () => {
     contractInstance = await Contract.deployed()
-    expect(
-      contractInstance.address !== null &&
-      contractInstance.address !== undefined &&
-      contractInstance.address !== "0"
-    ).to.equal(true);
+    assert.notEqual(contractInstance.address, null);
+    assert.notEqual(contractInstance.address, undefined);
+    assert.notEqual(contractInstance.address, "0x0");
+    assert.notEqual(contractInstance.address, "");
   });
 
   it(".....", async () => {
