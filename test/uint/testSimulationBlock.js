@@ -12,10 +12,11 @@ contract('Test Simulation Block', function (accounts) {
 
     const aWeekAfter = (this.latestTime).add(time.duration.weeks(1));
     await time.increaseTo(aWeekAfter);
-    this.latestTime = await time.latest();
-    console.info("latestTime", this.latestTime.toString());
+    this.aweekAfterTime = await time.latest();
+    console.info("aweekAfterTime", this.aweekAfterTime.toString());
 
-    assert.equal(1, 1);
+    const isBlockMoved = this.aweekAfterTime.gte(this.latestTime);
+    assert(isBlockMoved);
   });
 
   it("Simulate block number", async () => {
@@ -26,9 +27,10 @@ contract('Test Simulation Block', function (accounts) {
     console.info("nextBlock", nextBlock.toString());
 
     await time.advanceBlockTo(nextBlock);
-    this.latestBlock = await time.latestBlock();
-    console.info("latestBlock", this.latestBlock.toString());
+    this.latestBlockAfter = await time.latestBlock();
+    console.info("latestBlockAfter", this.latestBlockAfter.toString());
 
-    assert.equal(1, 1);
+    const isBlockMoved = this.latestBlockAfter.gte(this.latestBlock);
+    assert(isBlockMoved);
   });
 });
